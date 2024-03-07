@@ -1,8 +1,8 @@
-###  DATE: 
+###  DATE: 05/03/24
 
-###  NAME: 
-###  ROLL NO :
-###  DEPARTMENT: 
+###  NAME: CHANDRU.P
+###  ROLL NO :212223110007
+###  DEPARTMENT: CSE(IOT)
 
 
 # EXPERIMENT--04-INTERUPT-GENRATION-USING-SENSOR-AND-VISUALIZING-USING-SERIAL-MONITOR
@@ -118,15 +118,58 @@ The diagram below shows how the GPIO pins are connected to the 16 interrupt line
   
 
 ## STM 32 CUBE PROGRAM :
+~~~
+#include "main.h"
+#include "stdio.h"
+
+#if defined (__ICCARM__) || defined (__ARMCC_VERSION)
+#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
+#elif defined(__GNUC__)
+
+#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+#endif
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+		if(HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_4)==0)
+		{
+			printf("obstacle found\n");
+			HAL_Delay(500);
+		}
+		else
+		{
+			printf("obstacle not found\n");
+			HAL_Delay(500);
+		}
+}
+
+PUTCHAR_PROTOTYPE
+{
+
+  HAL_UART_Transmit(&huart2, (uint8_t *)&ch, 1, 0xFFFF);
+
+  return ch;
+}
+~~~
 
 
 
 ## Output screen shots of serial port utility   :
+
+## Circuit board with Obstacle:
+![310153551-77624620-a097-4fc9-ba8a-bc468a5a91ba](https://github.com/Srivatsan0405/EXPERIMENT--04-INTERUPT-GENRATION-USING-SENSOR-AND-VISUALIZING-USING-SERIAL-MONITOR/assets/139841630/932f94da-75fe-4b75-aa93-fcc553eb583e)
+
+### Obstacle Found:
+![310092799-81125598-4860-4c8a-9fd8-6380d4140a91](https://github.com/Srivatsan0405/EXPERIMENT--04-INTERUPT-GENRATION-USING-SENSOR-AND-VISUALIZING-USING-SERIAL-MONITOR/assets/139841630/f76ba16b-32b7-4ed7-9605-ea17f1e53851)
+
+
+## Circuit board Without obstacle:
+![310153625-da669acc-1171-4fee-a24f-3b21d04ce47d](https://github.com/Srivatsan0405/EXPERIMENT--04-INTERUPT-GENRATION-USING-SENSOR-AND-VISUALIZING-USING-SERIAL-MONITOR/assets/139841630/899a0caf-c823-40ef-86a9-bd746c0b9656)
+
+
+### Obstacle NotFound:
+![310153686-680bba30-7ee6-4004-9d1b-c405b82f8720](https://github.com/Srivatsan0405/EXPERIMENT--04-INTERUPT-GENRATION-USING-SENSOR-AND-VISUALIZING-USING-SERIAL-MONITOR/assets/139841630/b55c35b1-e81e-4ded-a9b0-2919b487bc75)
  
- 
- ## Circuit board :
- 
- 
- 
+
 ## Result :
 Interfacing a  IR SENSOR and interrupt is generated using external interrupt mode , visualized on serial port 
